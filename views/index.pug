@@ -3,3 +3,28 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  table
+    tr
+      th (index)
+      th handler
+      th name
+      th endpoint
+      th method
+    tr
+      td 0
+      td http
+      th addInvoice
+      td /invoice
+      td POST
+    tr
+      td 1
+      td http
+      th getAllInvoices
+      td /invoices
+      td GET
+    tr
+      td 2
+      td http
+      th getInvoiceById
+      td /invoice/:id
+      td GET

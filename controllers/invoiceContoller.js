@@ -4,18 +4,19 @@ const firebase = require('../db');
 const Invoice = require('../models/invoice');
 const firestore = firebase.firestore();
 
-const addInvoice = async (req, res, next) => {
+const addInvoice = async(req, res, next) => {
     try {
         const data = req.body;
         await firestore.collection('invoices').doc()
             .set(data);
-        res.send('Record saved successfully');
+        //res.send('Record saved successfully');
+        res.sendStatus(200);
     } catch (err) {
         res.status(400).send(err.message);
     }
 }
 
-const getAllInvoices = async (req, res, next) => {
+const getAllInvoices = async(req, res, next) => {
     try {
         const invoices = await firestore.collection('invoices');
         const data = await invoices.get();
@@ -39,7 +40,7 @@ const getAllInvoices = async (req, res, next) => {
     }
 }
 
-const getInvoice = async (req, res, next) => {
+const getInvoice = async(req, res, next) => {
     try {
         const id = req.params.id;
         const invoice = await firestore.collection('invoices').doc(id);
