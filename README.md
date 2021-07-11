@@ -1,1 +1,1 @@
-### Vitae Wear Backend template(Node.js)
+### Vitae Wear Backend template (Typescript)`
