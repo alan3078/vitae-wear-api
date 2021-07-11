@@ -1,6 +1,4 @@
-'use strict';
-const dotenv = require('dotenv');
-const assert = require('assert');
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -17,10 +15,10 @@ const {
     APP_ID
 } = process.env;
 
-assert(PORT, 'PORT is require');
-assert(HOST, 'HOST is require');
+//assert(PORT, 'PORT is require');
+//assert(HOST, 'HOST is require');
 
-module.exports = {
+export default {
     port: PORT,
     host: HOST,
     url: HOST_URL,
