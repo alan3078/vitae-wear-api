@@ -10,7 +10,7 @@ export class UsersRoutes extends CommonRoutesConfig {
 
     configureRoutes(): express.Application {
         this.app
-            .route(`/users`)
+            .route(`/api/v1/users`)
             .get(UsersController.listUsers)
             .post(
                 UsersMiddleware.validateRequiredUserBodyFields,
@@ -18,20 +18,20 @@ export class UsersRoutes extends CommonRoutesConfig {
                 UsersController.createUser
             );
 
-        this.app.param(`userId`, UsersMiddleware.extractUserId);
+        this.app.param(`/api/v1/userId`, UsersMiddleware.extractUserId);
         this.app
-            .route(`/users/:userId`)
+            .route(`/api/v1/users/:userId`)
             .all(UsersMiddleware.validateUserExists)
             .get(UsersController.getUserById)
             .delete(UsersController.removeUser);
 
-        this.app.put(`/users/:userId`, [
+        this.app.put(`/api/v1/users/:userId`, [
             UsersMiddleware.validateRequiredUserBodyFields,
             UsersMiddleware.validateSameEmailBelongToSameUser,
             UsersController.put,
         ]);
 
-        this.app.patch(`/users/:userId`, [
+        this.app.patch(`/api/v1/users/:userId`, [
             UsersMiddleware.validatePatchEmail,
             UsersController.patch,
         ]);

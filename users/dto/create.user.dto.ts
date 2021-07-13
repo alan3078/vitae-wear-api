@@ -4,5 +4,9 @@ export interface CreateUserDto {
     password: string;
     firstName?: string;
     lastName?: string;
+    invoiceNumber: number;
+    address:string;
+    tag:string;
+    phone:number;
     permissionLevel?: number;
 }

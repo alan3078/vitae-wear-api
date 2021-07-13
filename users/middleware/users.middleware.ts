@@ -9,11 +9,11 @@ class UsersMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        if (req.body && req.body.email && req.body.password) {
+        if (req.body && req.body.email && req.body.password && req.body.firstName && req.body.lastName && req.body.address && req.body.phone) {
             next();
         } else {
             res.status(400).send({
-                error: `Missing required fields email and password`,
+                error: `Missing required fields`
             });
         }
     }
@@ -73,7 +73,7 @@ class UsersMiddleware {
             });
         }
     }
-    
+
     async extractUserId(
         req: express.Request,
         res: express.Response,

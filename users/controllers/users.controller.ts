@@ -17,7 +17,7 @@ const log: debug.IDebugger = debug('app:users-controller');
 class UsersController {
     async listUsers(req: express.Request, res: express.Response) {
         try {
-            const allUsers:any = []
+            const allUsers: any = []
             const querySnapshot = await db.collection('users').get()
             querySnapshot.forEach((doc: any) => allUsers.push(doc.data()))
             res.status(200).json(allUsers)
@@ -34,7 +34,16 @@ class UsersController {
     }
 
     async createUser(req: express.Request, res: express.Response) {
-        const { email, password, firstName, lastName, permissionLevel } = req.body
+        const {
+            email,
+            password,
+            firstName,
+            lastName,
+            invoiceNumber,
+            address,
+            tag,
+            phone,
+            permissionLevel } = req.body
         try {
             const user = db.collection('users').doc()
             const userObject = {
@@ -43,6 +52,10 @@ class UsersController {
                 password,
                 firstName,
                 lastName,
+                invoiceNumber,
+                address,
+                tag,
+                phone,
                 permissionLevel
             }
 
