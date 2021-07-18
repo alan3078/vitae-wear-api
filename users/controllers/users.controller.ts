@@ -1,5 +1,5 @@
 // we import express to add types to the request/response objects from our controller functions
-import express from 'express';
+import express, { query } from 'express';
 
 // we import our newly created user services
 import usersService from '../services/users.service';
@@ -29,8 +29,25 @@ class UsersController {
     }
 
     async getUserById(req: express.Request, res: express.Response) {
-        const user = await usersService.readById(req.body.id);
-        res.status(200).send(user);
+        //const user = await usersService.readById(req.body.id);
+        //res.status(200).send(user);
+        try {
+            const querySnapshot = await db.collection('users').doc(req.params.userId).get()
+            if (querySnapshot.exists) {
+                const userData = querySnapshot.data()
+                res.status(200).json(userData)
+            } else {
+                res.status(404).send({
+                    error: `User ${req.params.userId} not found`,
+                })
+            }
+
+
+        } catch (error) {
+            res.status(500).json
+        }
+        //const users = await usersService.list(100, 0);
+        //res.status(200).send(users);
     }
 
     async createUser(req: express.Request, res: express.Response) {
@@ -88,8 +105,16 @@ class UsersController {
     }
 
     async removeUser(req: express.Request, res: express.Response) {
-        log(await usersService.deleteById(req.body.id));
-        res.status(204).send();
+        try {
+            await db.collection('users').doc(req.params.userId).delete()
+            res.status(204).send();
+        } catch (error) {
+            res.status(500).json
+        }
+        //const users = await usersService.list(100, 0);
+        //res.status(200).send(users);
+        //log(await usersService.deleteById(req.body.id));
+        //res.status(204).send();
     }
 }
 
