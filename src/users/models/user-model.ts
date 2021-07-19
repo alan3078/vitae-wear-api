@@ -4,9 +4,28 @@ import db from '../../db'
 
 export const getAllUsers = async () => {
     // only for db connection
-    const users = await db.collection('users').get()
-    console.log('users: ', users)
-    return users
+    // const users = await db.collection('users').get()
+    // console.log('users: ', users)
+    // return users
+    const allUsers:any = []
+    const querySnapshot = await db.collection('users').get()
+    querySnapshot.forEach((doc: any) => allUsers.push(doc.data()))
+    console.log('users: ', allUsers)
+    return allUsers
+}
+
+// TODO: remove it once create new function
+export const getUserById = async (id:string) => {
+    const querySnapshot = await db
+        .collection('users')
+        .doc(id)
+        .get()
+    if (querySnapshot.exists){
+        console.log('users: ',querySnapshot.data())
+        return querySnapshot.data()
+    }
+    return null
+
 }
 
 // TODO: remove it once create new function

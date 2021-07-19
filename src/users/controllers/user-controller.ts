@@ -23,7 +23,18 @@ const getAllUsers = async (
     }
 }
 
-export default getAllUsers
+const getUserById = async (req: express.Request, res: express.Response) => {
+    // handle response, request and error here, all logics stuff  go to service
+    try {
+        const users = await userService.getUserById(req.params.userId)
+        res.status(200).json(users)
+    } catch (error) {
+        // implement error handling
+        console.log('error: ', error)
+    }
+}
+
+export { getAllUsers, getUserById }
 
 // class UsersController {
 //     async listUsers(req: express.Request, res: express.Response) {

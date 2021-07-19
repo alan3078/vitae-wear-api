@@ -6,6 +6,12 @@ export const getAllUsers = async () => {
     return users
 }
 
+export const getUserById = async (id:string) => {
+    // business logic/data manipulation here
+    const users = await User.getUserById(id)
+    return users
+}
+
 export const secondFunc = () => {}
 
 // class UsersService implements CRUD {
