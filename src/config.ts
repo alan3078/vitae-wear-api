@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
 const {
     PORT,
@@ -13,16 +13,16 @@ const {
     STORAGE_BUCKET,
     MESSAGING_SENDER_ID,
     APP_ID
-} = process.env;
+} = process.env
 
-//assert(PORT, 'PORT is require');
-//assert(HOST, 'HOST is require');
+// assert(PORT, 'PORT is require');
+// assert(HOST, 'HOST is require');
 
 export default {
     port: PORT,
     host: HOST,
     url: HOST_URL,
-    firebaseConfig : {
+    firebaseConfig: {
         apiKey: API_KEY,
         authDomain: AUTH_DOMAIN,
         databaseURL: DATABASE_URL,

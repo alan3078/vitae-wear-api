@@ -1,17 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.env = void 0;
 /**
  * Returns value stored in environment variable with the given `name`.
  * Throws Error if no such variable or if variable undefined; thus ensuring type-safety.
  * @param name - name of variable to fetch from this process's environment.
  */
-function env(name) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const env = (name) => {
     const value = process.env[name];
     if (!value) {
         throw new Error(`Missing: process.env['${name}'].`);
     }
     return value;
-}
-exports.env = env;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW52LXZhci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb25maWcvZW52LXZhci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBQTs7OztHQUlHO0FBQ0YsU0FBZ0IsR0FBRyxDQUFDLElBQVk7SUFDN0IsTUFBTSxLQUFLLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQztJQUVoQyxJQUFJLENBQUMsS0FBSyxFQUFFO1FBQ1YsTUFBTSxJQUFJLEtBQUssQ0FBQyx5QkFBeUIsSUFBSSxLQUFLLENBQUMsQ0FBQztLQUNyRDtJQUVELE9BQU8sS0FBSyxDQUFDO0FBQ2YsQ0FBQztBQVJGLGtCQVFFIn0=
+};
+exports.default = env;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW52LXZhci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb25maWcvZW52LXZhci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUE7Ozs7R0FJRzs7QUFFSCxNQUFNLEdBQUcsR0FBRyxDQUFDLElBQVksRUFBVSxFQUFFO0lBQ2pDLE1BQU0sS0FBSyxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLENBQUE7SUFFL0IsSUFBSSxDQUFDLEtBQUssRUFBRTtRQUNSLE1BQU0sSUFBSSxLQUFLLENBQUMseUJBQXlCLElBQUksS0FBSyxDQUFDLENBQUE7S0FDdEQ7SUFFRCxPQUFPLEtBQUssQ0FBQTtBQUNoQixDQUFDLENBQUE7QUFFRCxrQkFBZSxHQUFHLENBQUEifQ==
