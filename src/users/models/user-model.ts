@@ -1,9 +1,6 @@
 import shortid from 'shortid'
-import debug from 'debug'
 
 import db from '../../db'
-
-const log: debug.IDebugger = debug('app:in-memory-dao')
 
 export const getAllUsers = async () => {
     // only for db connection
