@@ -1,25 +1,25 @@
 // we import express to add types to the request/response objects from our controller functions
-import express, { query } from 'express'
+import express, { NextFunction, query } from 'express'
 
 // we import our newly created user services
 
 // we import the argon2 library for password hashing
 import argon2 from 'argon2'
 
-// we use debug with a custom context as described in Part 1
-import debug from 'debug'
 import * as userService from '../services/user-service'
 
-const log: debug.IDebugger = debug('app:users-controller')
-
-const getAllUsers = async (req: express.Request, res: express.Response) => {
+const getAllUsers = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+) => {
     // handle response, request and error here, all logics stuff  go to service
     try {
         const users = await userService.getAllUsers()
         res.status(200).json(users)
     } catch (error) {
-        // implement error handling
-        console.log('error: ', error)
+        // will be caught by error-handler
+        next(error)
     }
 }
 
