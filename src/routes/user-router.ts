@@ -1,10 +1,17 @@
 import { Router } from 'express'
-import {getAllUsers, getUserById} from '../users/controllers/user-controller'
+import {
+    createUser,
+    getAllUsers,
+    getUserById,
+    removeUserbyId
+} from '../users/controllers/user-controller'
 
 const userRouter = Router()
 
 userRouter.get('/', getAllUsers)
 userRouter.get('/:userId', getUserById)
+userRouter.post('/', createUser)
+userRouter.delete('/:userId', removeUserbyId)
 
 export default userRouter
 

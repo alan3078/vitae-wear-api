@@ -1,31 +1,48 @@
 import shortid from 'shortid'
 
 import db from '../../db'
+import { UserDto } from '../dto/user.dto'
 
 export const getAllUsers = async () => {
     // only for db connection
     // const users = await db.collection('users').get()
     // console.log('users: ', users)
     // return users
-    const allUsers:any = []
+    //const allUsers: Array<UserDto> = []
+    // https://firebase.google.com/docs/firestore/query-data/get-data
     const querySnapshot = await db.collection('users').get()
-    querySnapshot.forEach((doc: any) => allUsers.push(doc.data()))
+
+    // https://firebase.google.com/docs/reference/js/firebase.firestore.QuerySnapshot?authuser=0#docs
+    const allUsers: Array<any> = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }))
     console.log('users: ', allUsers)
     return allUsers
 }
 
 // TODO: remove it once create new function
-export const getUserById = async (id:string) => {
-    const querySnapshot = await db
-        .collection('users')
-        .doc(id)
-        .get()
-    if (querySnapshot.exists){
-        console.log('users: ',querySnapshot.data())
+export const getUserById = async (id: string) => {
+    const querySnapshot = await db.collection('users').doc(id).get()
+    if (querySnapshot.exists) {
+        console.log('users: ', querySnapshot.data())
         return querySnapshot.data()
     }
     return null
+}
 
+export const createUser = async (user: UserDto) => {
+    const userDB = db.collection('users').doc(user.id)
+    userDB.set(user)
+    return user
+}
+
+export const removeUserById = async (user: UserDto) => {
+    await db.collection('users').doc(user.id).delete()
+}
+
+export const patchUserById = async (user: UserDto) => {
+    await db.collection('users').doc(user.id).delete()
 }
 
 // TODO: remove it once create new function
