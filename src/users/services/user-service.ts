@@ -22,7 +22,13 @@ export const createUser = async (user: UserDto) => {
 
 export const removeUserById = async (id: string) => {
     // business logic/data manipulation here
-    const users = await User.getUserById(id)
+    const users = await User.removeUserById(id)
+    return users
+}
+
+export const putUserById = async (id: string, user: UserDto) => {
+    // business logic/data manipulation here
+    const users = await User.putUserById(id, user)
     return users
 }
 

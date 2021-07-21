@@ -74,7 +74,7 @@ const createUser = async (req: express.Request, res: express.Response) => {
 const removeUserbyId = async (req: express.Request, res: express.Response) => {
     // handle response, request and error here, all logics stuff  go to service
     try {
-        await userService.removeUserById(req.params.id)
+        await userService.removeUserById(req.params.userId)
         res.status(204).send()
     } catch (error) {
         // implement error handling
@@ -82,7 +82,43 @@ const removeUserbyId = async (req: express.Request, res: express.Response) => {
     }
 }
 
-export { getAllUsers, getUserById, createUser, removeUserbyId }
+const putUserbyId = async (req: express.Request, res: express.Response) => {
+    // handle response, request and error here, all logics stuff  go to service
+    const {
+        id,
+        email,
+        password,
+        firstName,
+        lastName,
+        invoiceNumber,
+        address,
+        tag,
+        phone,
+        permissionLevel
+    } = req.body
+    const user: UserDto = {
+        id,
+        email,
+        password,
+        firstName,
+        lastName,
+        invoiceNumber,
+        address,
+        tag,
+        phone,
+        permissionLevel
+    }
+    try {
+        const users = await userService.getUserById(req.params.userId)
+        await userService.putUserById(req.params.userId, user)
+        res.status(204).send()
+    } catch (error) {
+        // implement error handling
+        console.log('error: ', error)
+    }
+}
+
+export { getAllUsers, getUserById, createUser, removeUserbyId, putUserbyId }
 
 // class UsersController {
 //     async listUsers(req: express.Request, res: express.Response) {

@@ -34,15 +34,18 @@ export const getUserById = async (id: string) => {
 export const createUser = async (user: UserDto) => {
     const userDB = db.collection('users').doc(user.id)
     userDB.set(user)
+    console.log('set users: ', user)
     return user
 }
 
-export const removeUserById = async (user: UserDto) => {
-    await db.collection('users').doc(user.id).delete()
+export const removeUserById = async (id: string) => {
+    await db.collection('users').doc(id).delete()
+    console.log('remove users id: ', id)
 }
 
-export const patchUserById = async (user: UserDto) => {
-    await db.collection('users').doc(user.id).delete()
+export const putUserById = async (id: string, user: UserDto) => {
+    await db.collection('users').doc(id).set(user, { merge: true })
+    console.log('put user id: ', id, 'data: ', user)
 }
 
 // TODO: remove it once create new function
