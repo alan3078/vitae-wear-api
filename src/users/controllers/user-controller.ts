@@ -85,7 +85,6 @@ const removeUserbyId = async (req: express.Request, res: express.Response) => {
 const putUserbyId = async (req: express.Request, res: express.Response) => {
     // handle response, request and error here, all logics stuff  go to service
     const {
-        id,
         email,
         password,
         firstName,
@@ -96,6 +95,7 @@ const putUserbyId = async (req: express.Request, res: express.Response) => {
         phone,
         permissionLevel
     } = req.body
+    const id: string = req.params.userId
     const user: UserDto = {
         id,
         email,
@@ -109,9 +109,11 @@ const putUserbyId = async (req: express.Request, res: express.Response) => {
         permissionLevel
     }
     try {
-        const users = await userService.getUserById(req.params.userId)
-        await userService.putUserById(req.params.userId, user)
-        res.status(204).send()
+        await userService.putUserById(user)
+        res.status(200).send({
+            status: 'OK',
+            message: user
+        })
     } catch (error) {
         // implement error handling
         console.log('error: ', error)

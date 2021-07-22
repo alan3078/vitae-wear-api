@@ -43,9 +43,9 @@ export const removeUserById = async (id: string) => {
     console.log('remove users id: ', id)
 }
 
-export const putUserById = async (id: string, user: UserDto) => {
-    await db.collection('users').doc(id).set(user, { merge: true })
-    console.log('put user id: ', id, 'data: ', user)
+export const putUserById = async (user: UserDto) => {
+    await db.collection('users').doc(user.id).set(user)
+    console.log('put user id: ', user.id, 'data: ', user)
 }
 
 // TODO: remove it once create new function

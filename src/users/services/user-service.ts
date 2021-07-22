@@ -26,9 +26,9 @@ export const removeUserById = async (id: string) => {
     return users
 }
 
-export const putUserById = async (id: string, user: UserDto) => {
+export const putUserById = async (user: UserDto) => {
     // business logic/data manipulation here
-    const users = await User.putUserById(id, user)
+    const users = await User.putUserById(user)
     return users
 }
 
