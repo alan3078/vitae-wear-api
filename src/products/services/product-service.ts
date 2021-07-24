@@ -2,9 +2,9 @@ import * as Product from '../models/product-model'
 
 import { ProductDto } from '../dto/product.dto'
 
-export const getProduct = async (category: string) => {
+export const getProduct = async (category: string,brand:string) => {
     // business logic/data manipulation here
-    const product = await Product.getProduct(category)
+    const product = await Product.getProduct(category,brand)
     return product
 }
 

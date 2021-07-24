@@ -3,38 +3,45 @@ import shortid from 'shortid'
 import db from '../../db'
 import { ProductDto } from '../dto/product.dto'
 
-const collection:string = 'product'
+const collection: string = 'product'
 
 // https://firebase.google.com/docs/firestore/query-data/get-data
 // https://firebase.google.com/docs/reference/js/firebase.firestore.QuerySnapshot?authuser=0#docs
-const getAllProduct = async () => {
-    const querySnapshot = await db.collection(collection).get()
-    const product: Partial<ProductDto>[] = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-    }))
-    return product
-}
 
-const getProductByCategory = async (category: string) => {
-    const querySnapshot = await db
+export const getProduct = async (category: string, brand: string) => {
+
+    let queryCollection
+
+    if (category) {
+        queryCollection = await db
         .collection(collection)
         .where('category', '==', category)
-        .get()
-    const product: Partial<ProductDto>[] = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-    }))
-    return product
-}
-
-export const getProduct = async (category: string) => {
-    switch (category) {
-        case 'all':
-            return getAllProduct()
-        default:
-            return getProductByCategory(category)
     }
+    
+    if (brand) {
+        queryCollection = await db
+        .collection(collection)
+        .where('brand', '==', brand)
+    }
+
+    if (!category && !brand) {
+        queryCollection = await db
+            .collection(collection)
+    }
+
+    if (queryCollection){
+        const querySnapshot = await queryCollection.get()
+
+        const product: Partial<ProductDto>[] = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }))
+    
+        return product
+    } else {
+        return null
+    }
+
 }
 
 export const getProductById = async (id: string) => {

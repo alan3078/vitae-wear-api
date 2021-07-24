@@ -10,10 +10,11 @@ const getProduct = async (
     next: NextFunction
 ) => {
     // handle response, request and error here, all logics stuff  go to service
-    let category: string = req.param('category') || 'all'
+    let category: string = req.query.category as string
+    let brand: string = req.query.brand as string
 
     try {
-        const products = await productService.getProduct(category)
+        const products = await productService.getProduct(category, brand)
         res.status(200).json(products)
     } catch (error) {
         // will be caught by error-handler
