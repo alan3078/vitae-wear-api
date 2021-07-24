@@ -19,14 +19,20 @@ const getAllProducts = async (
     }
 }
 
-const getProductById = async (req: express.Request, res: express.Response) => {
+const getProductById = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+) => {
     // handle response, request and error here, all logics stuff  go to service
     try {
-        const products = await productService.getProductById(req.params.productId)
+        const products = await productService.getProductById(
+            req.params.productId
+        )
         res.status(200).json(products)
     } catch (error) {
-        // implement error handling
-        console.log('error: ', error)
+        // will be caught by error-handler
+        next(error)
     }
 }
 
@@ -56,31 +62,40 @@ const createProduct = async (
     }
 }
 
-const removeProductbyId = async (req: express.Request, res: express.Response) => {
+const removeProductbyId = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+) => {
     // handle response, request and error here, all logics stuff  go to service
     try {
         await productService.removeProductById(req.params.productId)
         res.status(204).send()
     } catch (error) {
-        // implement error handling
-        console.log('error: ', error)
+        // will be caught by error-handler
+        next(error)
     }
 }
 
-// const patchProductbyId = async (req: express.Request, res: express.Response) => {
-//     // handle response, request and error here, all logics stuff  go to service
-//     const id: string = req.params.ProductId
-//     try {
-//         await productService.putProductById(Product)
-//         res.status(200).send({
-//             status: 'OK',
-//             message: Product
-//         })
-//     } catch (error) {
-//         // implement error handling
-//         console.log('error: ', error)
-//     }
-// }
+const patchProductbyId = async (
+    req: express.Request,
+    res: express.Response,
+    next: NextFunction
+) => {
+    // handle response, request and error here, all logics stuff  go to service
+    try {
+        const product = await productService.patchProductbyId(req.params.productId, req.body)
+        res.status(200).send(product)
+    } catch (error) {
+        // will be caught by error-handler
+        next(error)
+    }
+}
 
-
-export { getAllProducts, getProductById, createProduct, removeProductbyId }
+export {
+    getAllProducts,
+    getProductById,
+    createProduct,
+    removeProductbyId,
+    patchProductbyId
+}

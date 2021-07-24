@@ -10,7 +10,7 @@ export const getAllProducts = async () => {
     const querySnapshot = await db.collection('products').get()
 
     // https://firebase.google.com/docs/reference/js/firebase.firestore.QuerySnapshot?authuser=0#docs
-    const products: Array<any> = querySnapshot.docs.map(doc => ({
+    const products: Partial<ProductDto>[] = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
     }))
@@ -34,20 +34,18 @@ export const createProduct = async (product: ProductDto) => {
     return product
 }
 
-export const removeProductById = async (id: string) => {
+export const removeProductById = async (id: string): Promise<void> => {
     await db.collection('products').doc(id).delete()
     console.log('remove products id: ', id)
 }
 
-export const patchProductbyId = async (product: ProductDto) => {
-    await db
-        .collection('products')
-        .doc(product.id)
-        .update({ discount: product.discount })
-    console.log('patch product id: ', product.id, 'data: ', product)
-}
-
-// TODO: remove it once create new function
-export const secondFunc = () => {
-    console.log('dd')
+export const patchProductbyId = async (id: string, data: JSON) => {
+    await db.collection('products').doc(id).update(data)
+    const querySnapshot = await db.collection('products').doc(id).get()
+    if (querySnapshot.exists) {
+        console.log('Products: ', querySnapshot.data())
+        return querySnapshot.data()
+    }
+    console.log('patch product id: ', id, 'data: ', data)
+    return null
 }

@@ -20,16 +20,13 @@ export const createProduct = async (product: ProductDto) => {
     return products
 }
 
-export const removeProductById = async (id: string) => {
+export const removeProductById = async (id: string): Promise<void> => {
     // business logic/data manipulation here
-    const product = await Product.removeProductById(id)
-    return product
+    await Product.removeProductById(id)
 }
 
-export const patchProductbyId = async (product: ProductDto) => {
+export const patchProductbyId = async (id: string, data: JSON) => {
     // business logic/data manipulation here
-    const products = await Product.patchProductbyId(product)
+    const products = await Product.patchProductbyId(id, data)
     return products
 }
-
-export const secondFunc = () => {}

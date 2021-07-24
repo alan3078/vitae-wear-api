@@ -5,5 +5,5 @@ export interface ProductDto {
     sale: Boolean
     discount: number
     description: string
-    photos: Array<String>
+    photos: Array<string>
 }
