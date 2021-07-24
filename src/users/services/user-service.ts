@@ -20,7 +20,7 @@ export const createUser = async (user: UserDto) => {
     return users
 }
 
-export const removeUserById = async (id: string) => {
+export const removeUserById = async (id: string): Promise<void> => {
     // business logic/data manipulation here
     await User.removeUserById(id)
 }
