@@ -2,21 +2,21 @@ import * as Product from '../models/product-model'
 
 import { ProductDto } from '../dto/product.dto'
 
-export const getAllProducts = async () => {
+export const getProduct = async (category: string) => {
     // business logic/data manipulation here
-    const products = await Product.getAllProducts()
-    return products
+    const product = await Product.getProduct(category)
+    return product
 }
 
 export const getProductById = async (id: string) => {
     // business logic/data manipulation here
-    const products = await Product.getProductById(id)
-    return products
+    const product = await Product.getProductById(id)
+    return product
 }
 
-export const createProduct = async (product: ProductDto) => {
+export const addProduct = async (product: ProductDto) => {
     // business logic/data manipulation here
-    const products = await Product.createProduct(product)
+    const products = await Product.addProduct(product)
     return products
 }
 
@@ -27,6 +27,6 @@ export const removeProductById = async (id: string): Promise<void> => {
 
 export const patchProductbyId = async (id: string, data: JSON) => {
     // business logic/data manipulation here
-    const products = await Product.patchProductbyId(id, data)
-    return products
+    const product = await Product.patchProductbyId(id, data)
+    return product
 }

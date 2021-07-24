@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import {
-    getAllProducts,
-    createProduct,
+    getProduct,
+    addProduct,
     getProductById,
     removeProductbyId,
     patchProductbyId
@@ -9,9 +9,9 @@ import {
 
 const productRouter = Router()
 
-productRouter.get('/', getAllProducts)
+productRouter.get('/', getProduct)
 productRouter.get('/:productId', getProductById)
-productRouter.post('/', createProduct)
+productRouter.post('/', addProduct)
 productRouter.delete('/:productId', removeProductbyId)
 productRouter.patch('/:productId', patchProductbyId)
 
